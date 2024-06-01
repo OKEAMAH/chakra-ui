@@ -1,4 +1,5 @@
-import { CircularProgress, chakra } from "../src"
+import { CircularProgress } from "../src/components/progress-circular"
+import { chakra } from "../src/styled-system"
 
 export default {
   title: "Components / Progress - Circular",
@@ -11,41 +12,66 @@ export default {
   ],
 }
 
-export const Basic = () => (
-  <CircularProgress.Root value={20} valuePlacement="center">
-    <CircularProgress.ValueText>20%</CircularProgress.ValueText>
+export const basic = () => (
+  <CircularProgress.Root trackColor="gray.200" size="120px" value={20}>
     <CircularProgress.Circle>
       <CircularProgress.Track />
-      <CircularProgress.Range />
+      <CircularProgress.FilledTrack />
     </CircularProgress.Circle>
   </CircularProgress.Root>
 )
 
-export const RoundCap = () => (
-  <CircularProgress.Root value={20} valuePlacement="center">
-    <CircularProgress.ValueText>20%</CircularProgress.ValueText>
+export const withSize = () => {
+  return (
+    <CircularProgress.Root size="120px" value={60}>
+      <CircularProgress.Circle>
+        <CircularProgress.Track />
+        <CircularProgress.FilledTrack />
+      </CircularProgress.Circle>
+    </CircularProgress.Root>
+  )
+}
+
+export const withThickness = () => (
+  <CircularProgress.Root size="120px" value={60} thickness="3px">
     <CircularProgress.Circle>
       <CircularProgress.Track />
-      <CircularProgress.Range strokeLinecap="round" />
+      <CircularProgress.FilledTrack />
+    </CircularProgress.Circle>
+    <CircularProgress.ValueText>20%</CircularProgress.ValueText>
+  </CircularProgress.Root>
+)
+
+export const withValueText = () => (
+  <CircularProgress.Root size="120px" value={60}>
+    <CircularProgress.Circle>
+      <CircularProgress.Track />
+      <CircularProgress.FilledTrack />
+    </CircularProgress.Circle>
+    <CircularProgress.ValueText>60%</CircularProgress.ValueText>
+  </CircularProgress.Root>
+)
+
+export const circularIndeterminate = () => (
+  <CircularProgress.Root
+    capIsRound
+    trackColor="transparent"
+    size="50px"
+    indeterminate
+    value={3}
+  >
+    <CircularProgress.Circle>
+      <CircularProgress.Track />
+      <CircularProgress.FilledTrack />
     </CircularProgress.Circle>
   </CircularProgress.Root>
 )
 
-export const Customized = () => (
-  <CircularProgress.Root value={20} valuePlacement="center">
-    <CircularProgress.ValueText>20%</CircularProgress.ValueText>
-    <CircularProgress.Circle>
-      <CircularProgress.Track stroke="red.300" />
-      <CircularProgress.Range strokeLinecap="round" stroke="pink.800" />
-    </CircularProgress.Circle>
-  </CircularProgress.Root>
-)
-
-export const Indeterminate = () => (
-  <CircularProgress.Root value={null}>
+export const withZeroValue = () => (
+  <CircularProgress.Root value={0}>
     <CircularProgress.Circle>
       <CircularProgress.Track />
-      <CircularProgress.Range />
+      <CircularProgress.FilledTrack />
     </CircularProgress.Circle>
   </CircularProgress.Root>
 )

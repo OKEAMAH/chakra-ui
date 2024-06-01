@@ -23,7 +23,7 @@ import type {
   TokenDictionary,
   TokenFn,
 } from "./types"
-import { createUtility } from "./utility"
+import { createUtilty } from "./utility"
 
 export function createSystem(config: SystemConfig): SystemContext {
   const {
@@ -48,7 +48,7 @@ export function createSystem(config: SystemConfig): SystemContext {
     breakpoints,
   })
 
-  const utility = createUtility({
+  const utility = createUtilty({
     config: utilities,
     tokens,
   })

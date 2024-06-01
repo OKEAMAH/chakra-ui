@@ -1,84 +1,75 @@
 import { fireEvent, screen } from "@testing-library/react"
 import { forwardRef } from "react"
-import {
-  ErrorIcon,
-  ErrorMessage,
-  Field,
-  HelpText,
-  Label,
-  RequiredIndicator,
-  chakra,
-  useFieldProps,
-} from "../src"
+import { Field, chakra, useField } from "../src"
 import { render, testA11y } from "./core"
 
 const Input = forwardRef<HTMLInputElement, any>(function Input(props, ref) {
-  const { invalid: _, ...inputProps } = useFieldProps<HTMLInputElement>(props)
+  const { invalid: _, ...inputProps } = useField<HTMLInputElement>(props)
   return <chakra.input ref={ref} {...inputProps} />
 })
 
 describe("Field", () => {
   test("passes a11y test in default state", async () => {
     await testA11y(
-      <Field id="name">
-        <Label>Name</Label>
+      <Field.Root id="name">
+        <Field.Label>Name</Field.Label>
         <Input placeholder="Name" />
-        <HelpText>Enter your name please!</HelpText>
-        <ErrorMessage>Your name is invalid</ErrorMessage>
-      </Field>,
+        <Field.HelpText>Enter your name please!</Field.HelpText>
+        <Field.ErrorMessage>Your name is invalid</Field.ErrorMessage>
+      </Field.Root>,
     )
   })
 
   test("passes a11y test in when required", async () => {
     await testA11y(
-      <Field id="name" required>
-        <Label>Name</Label>
+      <Field.Root id="name" required>
+        <Field.Label>Name</Field.Label>
         <Input placeholder="Name" />
-        <HelpText>Enter your name please!</HelpText>
-        <ErrorMessage>Your name is invalid</ErrorMessage>
-      </Field>,
+        <Field.HelpText>Enter your name please!</Field.HelpText>
+        <Field.ErrorMessage>Your name is invalid</Field.ErrorMessage>
+      </Field.Root>,
     )
   })
 
   test("passes a11y test in when invalid", async () => {
     await testA11y(
-      <Field id="name" invalid>
-        <Label>Name</Label>
+      <Field.Root id="name" invalid>
+        <Field.Label>Name</Field.Label>
         <Input placeholder="Name" />
-        <HelpText>Enter your name please!</HelpText>
-        <ErrorMessage>Your name is invalid</ErrorMessage>
-      </Field>,
+        <Field.HelpText>Enter your name please!</Field.HelpText>
+        <Field.ErrorMessage>Your name is invalid</Field.ErrorMessage>
+      </Field.Root>,
     )
   })
 
   test("only displays error icon and message when invalid", () => {
     const { rerender } = render(
-      <Field id="name" invalid>
-        <Label>Name</Label>
-        <RequiredIndicator />
+      <Field.Root id="name" invalid>
+        <Field.Label>Name</Field.Label>
+        <Field.RequiredIndicator />
         <Input placeholder="Name" />
-        <HelpText>Enter your name please!</HelpText>
-        <ErrorMessage data-testid="message">
-          <ErrorIcon data-testid="icon" />
+        <Field.HelpText>Enter your name please!</Field.HelpText>
+        <Field.ErrorMessage data-testid="message">
+          <Field.ErrorIcon data-testid="icon" />
           Your name is invalid
-        </ErrorMessage>
-      </Field>,
+        </Field.ErrorMessage>
+      </Field.Root>,
     )
 
     expect(screen.getByTestId("icon")).toBeVisible()
     expect(screen.getByTestId("message")).toBeVisible()
 
     rerender(
-      <Field id="name">
-        <Label>Name</Label>
-        <RequiredIndicator />
+      <Field.Root id="name">
+        <Field.Label>Name</Field.Label>
+        <Field.RequiredIndicator />
         <Input placeholder="Name" />
-        <HelpText>Enter your name please!</HelpText>
-        <ErrorMessage data-testid="message">
-          <ErrorIcon data-testid="icon" />
+        <Field.HelpText>Enter your name please!</Field.HelpText>
+        <Field.ErrorMessage data-testid="message">
+          <Field.ErrorIcon data-testid="icon" />
           Your name is invalid
-        </ErrorMessage>
-      </Field>,
+        </Field.ErrorMessage>
+      </Field.Root>,
     )
 
     expect(screen.queryByTestId("icon")).not.toBeInTheDocument()
@@ -87,14 +78,14 @@ describe("Field", () => {
 
   test("only displays required indicator when required", () => {
     render(
-      <Field id="name" required>
-        <Label>
-          Name <RequiredIndicator data-testid="required" />
-        </Label>
+      <Field.Root id="name" required>
+        <Field.Label>
+          Name <Field.RequiredIndicator data-testid="required" />
+        </Field.Label>
         <Input placeholder="Name" />
-        <HelpText>Enter your name please!</HelpText>
-        <ErrorMessage>Your name is invalid</ErrorMessage>
-      </Field>,
+        <Field.HelpText>Enter your name please!</Field.HelpText>
+        <Field.ErrorMessage>Your name is invalid</Field.ErrorMessage>
+      </Field.Root>,
     )
 
     const indicatorEl = screen.getByTestId("required")
@@ -107,15 +98,15 @@ describe("Field", () => {
     const onBlur = vi.fn()
 
     render(
-      <Field id="name">
-        <Label>Name</Label>
+      <Field.Root id="name">
+        <Field.Label>Name</Field.Label>
         <Input
           data-testid="input"
           placeholder="Name"
           onFocus={onFocus}
           onBlur={onBlur}
         />
-      </Field>,
+      </Field.Root>,
     )
     const input = screen.getByTestId("input")
 
@@ -127,11 +118,11 @@ describe("Field", () => {
 
   test("has the proper aria attributes", async () => {
     render(
-      <Field id="name">
-        <Label>Name</Label>
+      <Field.Root id="name">
+        <Field.Label>Name</Field.Label>
         <Input placeholder="Name" />
-        <HelpText>Enter your name please!</HelpText>
-      </Field>,
+        <Field.HelpText>Enter your name please!</Field.HelpText>
+      </Field.Root>,
     )
 
     const inputEl = screen.getByRole("textbox")
@@ -143,11 +134,11 @@ describe("Field", () => {
 
   test("inherit required attribute", async () => {
     render(
-      <Field id="name" required>
-        <Label>Name</Label>
+      <Field.Root id="name" required>
+        <Field.Label>Name</Field.Label>
         <Input placeholder="Name" />
-        <HelpText>Enter your name please!</HelpText>
-      </Field>,
+        <Field.HelpText>Enter your name please!</Field.HelpText>
+      </Field.Root>,
     )
 
     const inputEl = screen.getByRole("textbox")
@@ -156,15 +147,24 @@ describe("Field", () => {
 
   test("has the correct data attributes", async () => {
     render(
-      <Field data-testid="control" id="name" required invalid disabled readOnly>
-        <Label data-testid="label">Name</Label>
-        <RequiredIndicator data-testid="indicator" />
+      <Field.Root
+        data-testid="control"
+        id="name"
+        required
+        invalid
+        disabled
+        readOnly
+      >
+        <Field.Label data-testid="label">Name</Field.Label>
+        <Field.RequiredIndicator data-testid="indicator" />
         <Input placeholder="Name" />
-        <HelpText data-testid="helper-text">Please enter your name!</HelpText>
-        <ErrorMessage data-testid="error-message">
+        <Field.HelpText data-testid="helper-text">
+          Please enter your name!
+        </Field.HelpText>
+        <Field.ErrorMessage data-testid="error-message">
           Your name is invalid.
-        </ErrorMessage>
-      </Field>,
+        </Field.ErrorMessage>
+      </Field.Root>,
     )
 
     fireEvent.focus(screen.getByPlaceholderText("Name"))
@@ -192,13 +192,13 @@ describe("Field", () => {
 
   test("should respect form control aria-describedby", () => {
     render(
-      <Field id="name">
+      <Field.Root id="name">
         <Input aria-describedby="name-expanded-helptext" />
-        <HelpText>Please enter your name!</HelpText>
+        <Field.HelpText>Please enter your name!</Field.HelpText>
         <p id="name-expanded-helptext">
           Sometimes it can be really helpful to enter a name, trust me.
         </p>
-      </Field>,
+      </Field.Root>,
     )
 
     expect(screen.getByRole("textbox")).toHaveAttribute(
@@ -207,15 +207,15 @@ describe("Field", () => {
     )
   })
 
-  test("it renders the optionalIndicator in Label if it is provided", () => {
+  test("it renders the optionalIndicator in Field.Label if it is provided", () => {
     render(
-      <Field required={false}>
-        <Label>
+      <Field.Root required={false}>
+        <Field.Label>
           Test
-          <RequiredIndicator fallback=" (optional)" />
-        </Label>
+          <Field.RequiredIndicator fallback=" (optional)" />
+        </Field.Label>
         <Input />
-      </Field>,
+      </Field.Root>,
     )
 
     expect(screen.getByText("(optional)")).toBeInTheDocument()

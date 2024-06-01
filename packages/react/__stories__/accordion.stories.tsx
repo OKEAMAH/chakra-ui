@@ -8,17 +8,17 @@ export default {
   decorators: [(story: Function) => <Box padding="4">{story()}</Box>],
 }
 
-const items = [
-  { value: "a", title: "First Item", text: "Some value 1..." },
-  { value: "b", title: "Second Item", text: "Some value 2..." },
-  { value: "c", title: "Third Item", text: "Some value 3..." },
+const accordionData = [
+  { title: "First Item", text: "Some value 1..." },
+  { title: "Second Item", text: "Some value 2..." },
+  { title: "Third Item", text: "Some value 3..." },
 ]
 
 const AccordionDemo = (props: Accordion.RootProps) => {
   return (
-    <Accordion.Root minW="300px" {...props} defaultValue={["b"]}>
-      {items.map((item, index) => (
-        <Accordion.Item key={index} value={item.value}>
+    <Accordion.Root minW="300px" {...props} defaultValue={["Second Item"]}>
+      {accordionData.map((item, index) => (
+        <Accordion.Item key={index} value={item.title}>
           <h2>
             <Accordion.ItemTrigger>
               <Box flex="1" textAlign="start">
@@ -30,7 +30,7 @@ const AccordionDemo = (props: Accordion.RootProps) => {
             </Accordion.ItemTrigger>
           </h2>
           <Accordion.ItemContent>
-            <Accordion.ItemBody>{item.text}</Accordion.ItemBody>
+            <Box pb="calc(var(--accordion-padding-y) * 2)">{item.text}</Box>
           </Accordion.ItemContent>
         </Accordion.Item>
       ))}

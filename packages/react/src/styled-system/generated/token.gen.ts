@@ -857,7 +857,6 @@ export type AnimationName =
   | "slide-right"
   | "slide-up"
   | "slide-down"
-  | "circular-progress"
   | "enter"
   | "exit"
 

@@ -7,12 +7,9 @@ import {
   Field,
   For,
   Group,
-  HelpText,
   Input,
   InputAddon,
   InputElement,
-  Label,
-  RequiredIndicator,
   Span,
   Stack,
   useRecipe,
@@ -94,17 +91,17 @@ export const Sizes = () => {
 export const WithButton = () => {
   return (
     <Stack maxW="sm" gap="4">
-      <Field>
-        <Label>
+      <Field.Root>
+        <Field.Label>
           First Name
-          <RequiredIndicator fallback={<Badge>Optional</Badge>} />
-        </Label>
+          <Field.RequiredIndicator fallback={<Badge>Optional</Badge>} />
+        </Field.Label>
         <Input />
-      </Field>
-      <Field>
-        <Label>Last Name</Label>
+      </Field.Root>
+      <Field.Root>
+        <Field.Label>Last Name</Field.Label>
         <Input />
-      </Field>
+      </Field.Root>
       <Button alignSelf="flex-start" variant="solid" mt="3">
         Submit
       </Button>
@@ -155,12 +152,14 @@ export const WithStates = () => (
   </Stack>
 )
 
-export const WithLabel = () => (
-  <Field id="first-name" required>
-    <Label>
-      Amount <RequiredIndicator color="fg.error" />
-    </Label>
-    <Input placeholder="Enter amount" />
-    <HelpText>Keep it very short and sweet!</HelpText>
-  </Field>
-)
+export const WithLabel = () => {
+  return (
+    <Field.Root id="first-name" required>
+      <Field.Label>
+        Amount <Field.RequiredIndicator color="fg.error" />
+      </Field.Label>
+      <Input placeholder="Enter amount" />
+      <Field.HelpText>Keep it very short and sweet!</Field.HelpText>
+    </Field.Root>
+  )
+}

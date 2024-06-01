@@ -22,18 +22,18 @@ import { Switch } from '@chakra-ui/react'
 ## Usage
 
 ```jsx
-<Field>
+<Field.Root>
   <HStack>
-    <Label htmlFor='email-alerts' mb='0'>
+    <Field.Label htmlFor='email-alerts' mb='0'>
       Enable email alerts?
-    </Label>
+    </Field.Label>
     <Switch.Root id='email-alerts'>
       <Switch.Track>
         <Switch.Thumb />
       </Switch.Track>
     </Switch.Root>
   </HStack>
-</Field>
+</Field.Root>
 ```
 
 ## Changing the size

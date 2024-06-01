@@ -34,8 +34,6 @@ export const tabSlotRecipe = defineSlotRecipe({
     },
     indicator: {
       borderRadius: "sm",
-      width: "var(--width)",
-      height: "var(--height)",
     },
   },
   variants: {

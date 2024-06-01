@@ -86,14 +86,6 @@ export interface TextareaVariantProps {
 
 export interface IconVariantProps {}
 
-export interface FieldVariantProps {}
-
-export interface ErrorMessageVariantProps {}
-
-export interface HelpTextVariantProps {}
-
-export interface LabelVariantProps {}
-
 export interface ConfigRecipes {
   Badge: SystemRecipeFn<BadgeVariantProps>
   Button: SystemRecipeFn<ButtonVariantProps>
@@ -112,10 +104,6 @@ export interface ConfigRecipes {
   Spinner: SystemRecipeFn<SpinnerVariantProps>
   Textarea: SystemRecipeFn<TextareaVariantProps>
   Icon: SystemRecipeFn<IconVariantProps>
-  Field: SystemRecipeFn<FieldVariantProps>
-  ErrorMessage: SystemRecipeFn<ErrorMessageVariantProps>
-  HelpText: SystemRecipeFn<HelpTextVariantProps>
-  Label: SystemRecipeFn<LabelVariantProps>
 }
 
 // Accordion
@@ -125,7 +113,6 @@ export type AccordionSlot =
   | "item"
   | "trigger"
   | "content"
-  | "body"
   | "indicator"
 
 export interface AccordionVariantProps {
@@ -145,7 +132,7 @@ export interface AlertVariantProps {
 
 // Avatar
 
-export type AvatarSlot = "root" | "image" | "fallback"
+export type AvatarSlot = "group" | "root" | "image" | "fallback" | "badge"
 
 export interface AvatarVariantProps {
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
@@ -261,6 +248,17 @@ export type EditableSlot = "root" | "preview" | "input" | "textarea"
 
 export interface EditableVariantProps {}
 
+// Field
+
+export type FieldSlot =
+  | "root"
+  | "label"
+  | "requiredIndicator"
+  | "helpText"
+  | "errorMessage"
+
+export interface FieldVariantProps {}
+
 // FileUpload
 
 export type FileUploadSlot =
@@ -370,13 +368,9 @@ export interface HoverCardVariantProps {
 export type ProgressSlot =
   | "root"
   | "label"
+  | "filledTrack"
   | "track"
-  | "range"
   | "valueText"
-  | "view"
-  | "circle"
-  | "circleTrack"
-  | "circleRange"
 
 export interface ProgressVariantProps {
   variant?: "outline" | "subtle"
@@ -393,29 +387,6 @@ export type RadioSlot = "root" | "item" | "control" | "indicator" | "label"
 
 export interface RadioVariantProps {
   variant?: "outline" | "subtle" | "classic"
-  size?: "sm" | "md" | "lg"
-}
-
-// Select
-
-export type SelectSlot =
-  | "label"
-  | "positioner"
-  | "trigger"
-  | "indicator"
-  | "clearTrigger"
-  | "item"
-  | "itemText"
-  | "itemIndicator"
-  | "itemGroup"
-  | "itemGroupLabel"
-  | "content"
-  | "root"
-  | "control"
-  | "valueText"
-
-export interface SelectVariantProps {
-  variant?: "outline"
   size?: "sm" | "md" | "lg"
 }
 
@@ -551,25 +522,6 @@ export type TooltipSlot =
 
 export interface TooltipVariantProps {}
 
-// CircularProgress
-
-export type CircularProgressSlot =
-  | "root"
-  | "label"
-  | "track"
-  | "range"
-  | "valueText"
-  | "view"
-  | "circle"
-  | "circleTrack"
-  | "circleRange"
-
-export interface CircularProgressVariantProps {
-  indeterminate?: boolean
-  valuePlacement?: "center"
-  size?: "xs" | "sm" | "md" | "lg"
-}
-
 export interface ConfigSlotRecipes {
   Accordion: SystemSlotRecipeFn<AccordionSlot, AccordionVariantProps>
   Alert: SystemSlotRecipeFn<AlertSlot, AlertVariantProps>
@@ -581,6 +533,7 @@ export interface ConfigSlotRecipes {
   Dialog: SystemSlotRecipeFn<DialogSlot, DialogVariantProps>
   Drawer: SystemSlotRecipeFn<DrawerSlot, DrawerVariantProps>
   Editable: SystemSlotRecipeFn<EditableSlot, EditableVariantProps>
+  Field: SystemSlotRecipeFn<FieldSlot, FieldVariantProps>
   FileUpload: SystemSlotRecipeFn<FileUploadSlot, FileUploadVariantProps>
   List: SystemSlotRecipeFn<ListSlot, ListVariantProps>
   Menu: SystemSlotRecipeFn<MenuSlot, MenuVariantProps>
@@ -590,7 +543,6 @@ export interface ConfigSlotRecipes {
   HoverCard: SystemSlotRecipeFn<HoverCardSlot, HoverCardVariantProps>
   Progress: SystemSlotRecipeFn<ProgressSlot, ProgressVariantProps>
   Radio: SystemSlotRecipeFn<RadioSlot, RadioVariantProps>
-  Select: SystemSlotRecipeFn<SelectSlot, SelectVariantProps>
   Slider: SystemSlotRecipeFn<SliderSlot, SliderVariantProps>
   Stat: SystemSlotRecipeFn<StatSlot, StatVariantProps>
   Steps: SystemSlotRecipeFn<StepsSlot, StepsVariantProps>
@@ -600,10 +552,6 @@ export interface ConfigSlotRecipes {
   Tag: SystemSlotRecipeFn<TagSlot, TagVariantProps>
   Toast: SystemSlotRecipeFn<ToastSlot, ToastVariantProps>
   Tooltip: SystemSlotRecipeFn<TooltipSlot, TooltipVariantProps>
-  CircularProgress: SystemSlotRecipeFn<
-    CircularProgressSlot,
-    CircularProgressVariantProps
-  >
 }
 
 export interface ConfigRecipeSlots {
@@ -617,6 +565,7 @@ export interface ConfigRecipeSlots {
   Dialog: DialogSlot
   Drawer: DrawerSlot
   Editable: EditableSlot
+  Field: FieldSlot
   FileUpload: FileUploadSlot
   List: ListSlot
   Menu: MenuSlot
@@ -626,7 +575,6 @@ export interface ConfigRecipeSlots {
   HoverCard: HoverCardSlot
   Progress: ProgressSlot
   Radio: RadioSlot
-  Select: SelectSlot
   Slider: SliderSlot
   Stat: StatSlot
   Steps: StepsSlot
@@ -636,7 +584,6 @@ export interface ConfigRecipeSlots {
   Tag: TagSlot
   Toast: ToastSlot
   Tooltip: TooltipSlot
-  CircularProgress: CircularProgressSlot
 }
 
 export type SlotRecipeRecord<T, K> = T extends keyof ConfigRecipeSlots

@@ -1,19 +1,17 @@
-export {
-  TabsContent as Content,
-  TabsContentGroup as ContentGroup,
-  TabsIndicator as Indicator,
-  TabsList as List,
-  TabsRoot as Root,
-  TabsTrigger as Trigger,
-} from "./tabs"
+export { TabTrigger as Trigger } from "./tab-trigger"
+export type { TabTriggerProps as TriggerProps } from "./tab-trigger"
 
-export type {
-  TabsContentGroupProps as ContentGroupProps,
-  TabsContentProps as ContentProps,
-  TabsIndicatorProps as IndicatorProps,
-  TabsListProps as ListProps,
-  TabsRootProps as RootProps,
-  TabsTriggerProps as TriggerProps,
-} from "./tabs"
+export { TabIndicator as Indicator } from "./tab-indicator"
+export type { TabIndicatorProps as IndicatorProps } from "./tab-indicator"
 
-export { TabsContext as Context } from "@ark-ui/react/tabs"
+export { TabList as List } from "./tab-list"
+export type { TabListProps as ListProps } from "./tab-list"
+
+export { TabContent as Content } from "./tab-content"
+export type { TabContentProps as ContentProps } from "./tab-content"
+
+export { TabContentGroup as ContentGroup } from "./tab-content-group"
+export type { TabContentGroupProps as ContentGroupProps } from "./tab-content-group"
+
+export { TabsRoot as Root } from "./tabs-root"
+export type { TabsRootProps as RootProps } from "./tabs-root"

@@ -52,15 +52,6 @@ export const AccordionItemContent = withContext<
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-export interface AccordionItemBodyProps extends HTMLChakraProps<"div"> {}
-
-export const AccordionItemBody = withContext<
-  HTMLDivElement,
-  AccordionItemBodyProps
->("div", "body")
-
-////////////////////////////////////////////////////////////////////////////////////
-
 export interface AccordionItemTriggerProps
   extends HTMLChakraProps<"button", ArkAccordion.ItemTriggerProps> {}
 

@@ -1,21 +1,7 @@
-export {
-  CircularProgressRoot,
-  CircularProgressLabel,
-  CircularProgressCircle,
-  CircularProgressTrack,
-  CircularProgressRange,
-  CircularProgressValueText,
-} from "./progress-circular"
+export { CircularProgressRoot } from "./circular-progress-root"
+export type { CircularProgressRootProps } from "./circular-progress-root"
 
-export type {
-  CircularProgressRootProps,
-  CircularProgressLabelProps,
-  CircularProgressCircleProps,
-  CircularProgressTrackProps,
-  CircularProgressRangeProps,
-  CircularProgressValueTextProps,
-} from "./progress-circular"
-
-export { useCircularProgressStyles } from "./progress-circular"
+export { CircularProgressLabel } from "./circular-progress-label"
+export type { CircularProgressLabelProps } from "./circular-progress-label"
 
 export * as CircularProgress from "./namespace"
