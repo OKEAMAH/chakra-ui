@@ -1,6 +1,6 @@
-import { fireEvent, screen } from "@testing-library/react"
+import { act, fireEvent, screen } from "@testing-library/react"
 import { useState } from "react"
-import { Checkbox, Field, Icon, Label } from "../src"
+import { Checkbox, Field, Icon } from "../src"
 import { render, testA11y } from "./core"
 
 const DemoCheckbox = (props: Checkbox.RootProps) => {
@@ -25,12 +25,12 @@ describe("Checkbox", () => {
     const controlEl = screen.getByTestId("control")
 
     // click the first time, it is checked
-    await user.click(inputEl)
+    await act(() => user.click(inputEl))
     expect(inputEl).toBeChecked()
     expect(controlEl).toHaveAttribute("data-checked")
 
     // click the second time, it is unchecked
-    await user.click(inputEl)
+    await act(() => user.click(inputEl))
     expect(inputEl).not.toBeChecked()
     expect(controlEl).not.toHaveAttribute("data-checked")
   })
@@ -44,7 +44,7 @@ describe("Checkbox", () => {
     expect(inputEl).toBeDisabled()
     expect(controlEl).toHaveAttribute("data-disabled")
 
-    await user.click(inputEl)
+    await act(() => user.click(inputEl))
     expect(inputEl).not.toBeChecked()
     expect(controlEl).not.toHaveAttribute("data-checked")
   })
@@ -76,7 +76,7 @@ describe("Checkbox", () => {
     const controlEl = screen.getByTestId("control")
     expect(controlEl).not.toBeChecked()
 
-    await user.click(controlEl)
+    await act(() => user.click(controlEl))
     expect(controlEl).toHaveAttribute("data-checked")
     expect(onChange).toHaveBeenCalled()
   })
@@ -98,7 +98,7 @@ describe("Checkbox", () => {
     expect(inputB).toBeChecked()
     expect(inputC).not.toBeChecked()
 
-    await user.click(inputC)
+    await act(() => user.click(inputC))
 
     expect(inputA).toBeChecked()
     expect(inputB).toBeChecked()
@@ -132,7 +132,7 @@ describe("Checkbox", () => {
     expect(inputB).toBeChecked()
     expect(inputC).not.toBeChecked()
 
-    await user.click(inputC)
+    await act(() => user.click(inputC))
     expect(onChange).toHaveBeenCalledTimes(1)
   })
 
@@ -154,9 +154,9 @@ describe("Checkbox", () => {
     expect(inputB).toBeDisabled()
     expect(inputC).not.toBeDisabled()
 
-    await user.click(inputA)
-    await user.click(inputB)
-    await user.click(inputC)
+    await act(() => user.click(inputA))
+    await act(() => user.click(inputB))
+    await act(() => user.click(inputC))
 
     expect(inputA).not.toBeChecked()
     expect(inputB).not.toBeChecked()
@@ -223,8 +223,8 @@ describe("Checkbox", () => {
 
   test("Uncontrolled Form.Control - should not check if form-control disabled", async () => {
     const { user } = render(
-      <Field disabled mt={4}>
-        <Label>Disabled Opt-in Example</Label>
+      <Field.Root disabled mt={4}>
+        <Field.Label>Disabled Opt-in Example</Field.Label>
         <Checkbox.Group>
           <DemoCheckbox value="1">Disabled Opt-in 1</DemoCheckbox>
           <DemoCheckbox value="2" disabled>
@@ -234,7 +234,7 @@ describe("Checkbox", () => {
             Disabled Opt-in 3
           </DemoCheckbox>
         </Checkbox.Group>
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA, inputB, inputC] = screen.getAllByRole("checkbox")
@@ -243,9 +243,9 @@ describe("Checkbox", () => {
     expect(inputB).toBeDisabled()
     expect(inputC).not.toBeDisabled()
 
-    await user.click(inputA)
-    await user.click(inputB)
-    await user.click(inputC)
+    await act(() => user.click(inputA))
+    await act(() => user.click(inputB))
+    await act(() => user.click(inputC))
 
     expect(inputA).not.toBeChecked()
     expect(inputB).not.toBeChecked()
@@ -254,8 +254,8 @@ describe("Checkbox", () => {
 
   test("Uncontrolled Form.Control - mark label as invalid", () => {
     const { container } = render(
-      <Field invalid mt={4}>
-        <Label>Invalid Opt-in Example</Label>
+      <Field.Root invalid mt={4}>
+        <Field.Label>Invalid Opt-in Example</Field.Label>
         <Checkbox.Group>
           <DemoCheckbox value="1">Invalid Opt-in 1</DemoCheckbox>
           <DemoCheckbox value="2" invalid>
@@ -265,7 +265,7 @@ describe("Checkbox", () => {
             Invalid Opt-in 3
           </DemoCheckbox>
         </Checkbox.Group>
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA, inputB, inputC] = Array.from(
@@ -295,8 +295,8 @@ describe("Checkbox", () => {
 
   test("Uncontrolled Form.Control - mark label required", () => {
     const { container } = render(
-      <Field required mt={4}>
-        <Label>Required Opt-in Example</Label>
+      <Field.Root required mt={4}>
+        <Field.Label>Required Opt-in Example</Field.Label>
         <Checkbox.Group>
           <DemoCheckbox value="1">Required Opt-in 1</DemoCheckbox>
           <DemoCheckbox value="2" required>
@@ -306,7 +306,7 @@ describe("Checkbox", () => {
             Required Opt-in 3
           </DemoCheckbox>
         </Checkbox.Group>
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA, inputB, inputC] = Array.from(
@@ -320,8 +320,8 @@ describe("Checkbox", () => {
 
   test("Uncontrolled Form.Control - mark readonly", () => {
     const { container } = render(
-      <Field readOnly mt={4}>
-        <Label>ReadOnly Opt-in Example</Label>
+      <Field.Root readOnly mt={4}>
+        <Field.Label>ReadOnly Opt-in Example</Field.Label>
         <Checkbox.Group>
           <DemoCheckbox value="1">ReadOnly Opt-in 1</DemoCheckbox>
           <DemoCheckbox value="2" readOnly>
@@ -331,7 +331,7 @@ describe("Checkbox", () => {
             ReadOnly Opt-in 3
           </DemoCheckbox>
         </Checkbox.Group>
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA, inputB, inputC] = Array.from(
@@ -356,14 +356,14 @@ describe("Checkbox", () => {
     const checkboxOnFocusMock = vi.fn()
 
     const { container } = render(
-      <Field mt={4} onFocus={formControlOnFocusMock}>
-        <Label>onFocus example</Label>
+      <Field.Root mt={4} onFocus={formControlOnFocusMock}>
+        <Field.Label>onFocus example</Field.Label>
         <Checkbox.Group>
           <DemoCheckbox value="1" onFocus={checkboxOnFocusMock}>
             onFocus Opt-in 1
           </DemoCheckbox>
         </Checkbox.Group>
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA] = Array.from(container.querySelectorAll("input"))
@@ -377,14 +377,14 @@ describe("Checkbox", () => {
     const checkboxOnBlurMock = vi.fn()
 
     const { container } = render(
-      <Field mt={4} onBlur={formControlOnBlurMock}>
-        <Label>onBlur Example</Label>
+      <Field.Root mt={4} onBlur={formControlOnBlurMock}>
+        <Field.Label>onBlur Example</Field.Label>
         <Checkbox.Group>
           <DemoCheckbox value="1" onBlur={checkboxOnBlurMock}>
             onBlur EOpt-in 1
           </DemoCheckbox>
         </Checkbox.Group>
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA] = Array.from(container.querySelectorAll("input"))

@@ -46,7 +46,8 @@ export async function getConfig(options: Options): Promise<RollupOptions> {
     ...Object.keys(packageJson.peerDependencies ?? {}),
   ]
 
-  const external = deps.length ? new RegExp(`^(${deps.join("|")})`) : undefined
+  const external = new RegExp(`^(${deps.join("|")})`)
+
   const entries = await glob("src/**/*.{ts,tsx}")
 
   const outputs: RollupOptions["output"] = [

@@ -8,6 +8,7 @@ import { checkboxSlotRecipe } from "./recipes/checkbox"
 import { dialogSlotRecipe } from "./recipes/dialog"
 import { drawerSlotRecipe } from "./recipes/drawer"
 import { editableSlotRecipe } from "./recipes/editable"
+import { fieldSlotRecipe } from "./recipes/field"
 import { fileUploadSlotRecipe } from "./recipes/file-upload"
 import { hoverCardSlotRecipe } from "./recipes/hover-card"
 import { listSlotRecipe } from "./recipes/list"
@@ -16,9 +17,7 @@ import { nativeSelectSlotRecipe } from "./recipes/native-select"
 import { numberInputSlotRecipe } from "./recipes/number-input"
 import { popoverSlotRecipe } from "./recipes/popover"
 import { progressSlotRecipe } from "./recipes/progress"
-import { circularProgressSlotRecipe } from "./recipes/progress-circular"
 import { radioSlotRecipe } from "./recipes/radio"
-import { selectSlotRecipe } from "./recipes/select"
 import { sliderSlotRecipe } from "./recipes/slider"
 import { statSlotRecipe } from "./recipes/stat"
 import { stepsSlotRecipe } from "./recipes/steps"
@@ -40,6 +39,7 @@ export const slotRecipes = {
   Dialog: dialogSlotRecipe,
   Drawer: drawerSlotRecipe,
   Editable: editableSlotRecipe,
+  Field: fieldSlotRecipe,
   FileUpload: fileUploadSlotRecipe,
   List: listSlotRecipe,
   Menu: menuSlotRecipe,
@@ -49,7 +49,6 @@ export const slotRecipes = {
   HoverCard: hoverCardSlotRecipe,
   Progress: progressSlotRecipe,
   Radio: radioSlotRecipe,
-  Select: selectSlotRecipe,
   Slider: sliderSlotRecipe,
   Stat: statSlotRecipe,
   Steps: stepsSlotRecipe,
@@ -59,5 +58,4 @@ export const slotRecipes = {
   Tag: tagSlotRecipe,
   Toast: toastSlotRecipe,
   Tooltip: tooltipSlotRecipe,
-  CircularProgress: circularProgressSlotRecipe,
 }

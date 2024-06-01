@@ -1,6 +1,6 @@
-import { fireEvent, screen } from "@testing-library/react"
+import { act, fireEvent, screen } from "@testing-library/react"
 import { useState } from "react"
-import { Field, Label, Switch } from "../src"
+import { Field, Switch } from "../src"
 import { render } from "./core"
 
 const DemoSwitch = (props: Switch.RootProps) => {
@@ -17,15 +17,12 @@ const DemoSwitch = (props: Switch.RootProps) => {
 describe("Switch", () => {
   test("Uncontrolled - should check and uncheck", async () => {
     const { user } = render(<DemoSwitch />)
-
     const input = screen.getByRole("checkbox")
 
-    await user.click(input)
-
+    await act(() => user.click(input))
     expect(input).toBeChecked()
 
-    await user.click(input)
-
+    await act(() => user.click(input))
     expect(input).not.toBeChecked()
   })
 
@@ -34,8 +31,7 @@ describe("Switch", () => {
     const input = screen.getByRole("checkbox")
     expect(input).toBeDisabled()
 
-    await user.click(input)
-
+    await act(() => user.click(input))
     expect(input).not.toBeChecked()
   })
 
@@ -59,12 +55,12 @@ describe("Switch", () => {
     const input = screen.getByRole("checkbox")
     expect(input).not.toBeChecked()
 
-    await user.click(input)
+    await act(() => user.click(input))
 
     expect(input).toBeChecked()
     expect(onChange).toHaveBeenCalled()
 
-    await user.click(input)
+    await act(() => user.click(input))
 
     expect(input).not.toBeChecked()
     expect(onChange).toHaveBeenCalled()
@@ -72,12 +68,12 @@ describe("Switch", () => {
 
   test("Uncontrolled FormControl - should not check if form-control disabled", async () => {
     const { user } = render(
-      <Field disabled mt="4">
-        <Label>Disabled Opt-in Example</Label>
+      <Field.Root disabled mt="4">
+        <Field.Label>Disabled Opt-in Example</Field.Label>
         <DemoSwitch />
         <DemoSwitch disabled />
         <DemoSwitch disabled={false} />
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA, inputB, inputC] = screen.getAllByRole("checkbox")
@@ -86,9 +82,9 @@ describe("Switch", () => {
     expect(inputB).toBeDisabled()
     expect(inputC).not.toBeDisabled()
 
-    await user.click(inputA)
-    await user.click(inputB)
-    await user.click(inputC)
+    await act(() => user.click(inputA))
+    await act(() => user.click(inputB))
+    await act(() => user.click(inputC))
 
     expect(inputA).not.toBeChecked()
     expect(inputB).not.toBeChecked()
@@ -97,12 +93,12 @@ describe("Switch", () => {
 
   test("Uncontrolled FormControl - mark label as invalid", () => {
     render(
-      <Field invalid mt="4">
-        <Label>Invalid Opt-in Example</Label>
+      <Field.Root invalid mt="4">
+        <Field.Label>Invalid Opt-in Example</Field.Label>
         <DemoSwitch>Invalid Opt-in 1</DemoSwitch>
         <DemoSwitch invalid>Invalid Opt-in 2</DemoSwitch>
         <DemoSwitch invalid={false}>Invalid Opt-in 3</DemoSwitch>
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA, inputB, inputC] = screen.getAllByRole("checkbox")
@@ -114,12 +110,12 @@ describe("Switch", () => {
 
   test("Uncontrolled FormControl - mark required", () => {
     render(
-      <Field required mt="4">
-        <Label>Required Opt-in Example</Label>
+      <Field.Root required mt="4">
+        <Field.Label>Required Opt-in Example</Field.Label>
         <DemoSwitch />
         <DemoSwitch required />
         <DemoSwitch required={false} />
-      </Field>,
+      </Field.Root>,
     )
 
     const [inputA, inputB, inputC] = screen.getAllByRole("checkbox")
@@ -131,10 +127,10 @@ describe("Switch", () => {
 
   test("Uncontrolled FormControl - mark readonly", () => {
     render(
-      <Field readOnly mt="4">
-        <Label>ReadOnly Opt-in Example</Label>
+      <Field.Root readOnly mt="4">
+        <Field.Label>ReadOnly Opt-in Example</Field.Label>
         <DemoSwitch />
-      </Field>,
+      </Field.Root>,
     )
 
     const inputEl = screen.getByRole("checkbox")
@@ -146,14 +142,14 @@ describe("Switch", () => {
     const _onFocus = vi.fn()
 
     const { user } = render(
-      <Field mt="4" onFocus={onFocus}>
-        <Label>onFocus Example</Label>
+      <Field.Root mt="4" onFocus={onFocus}>
+        <Field.Label>onFocus Example</Field.Label>
         <DemoSwitch onFocus={_onFocus} />
-      </Field>,
+      </Field.Root>,
     )
 
     const inputEl = screen.getByRole("checkbox")
-    await user.click(inputEl)
+    await act(() => user.click(inputEl))
 
     expect(onFocus).toHaveBeenCalled()
     expect(_onFocus).toHaveBeenCalled()
@@ -164,10 +160,10 @@ describe("Switch", () => {
     const _onBlur = vi.fn()
 
     render(
-      <Field mt="4" onBlur={onBlur}>
-        <Label>onBlur Example</Label>
+      <Field.Root mt="4" onBlur={onBlur}>
+        <Field.Label>onBlur Example</Field.Label>
         <DemoSwitch onBlur={_onBlur} />
-      </Field>,
+      </Field.Root>,
     )
 
     const inputEl = screen.getByRole("checkbox")

@@ -51,12 +51,12 @@ describe("RadioGroup", () => {
 
   test("should use unique id when wrapped in Field", () => {
     const { getAllByRole } = render(
-      <Field>
+      <Field.Root>
         <RadioGroup.Root defaultValue="a">
           <DemoRadio value="a">a</DemoRadio>
           <DemoRadio value="b">b</DemoRadio>
         </RadioGroup.Root>
-      </Field>,
+      </Field.Root>,
     )
 
     const [input1, input2] = getAllByRole("radio")

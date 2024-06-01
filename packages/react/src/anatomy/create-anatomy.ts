@@ -39,7 +39,7 @@ export function anatomy<T extends string = string>(
     }
 
     throw new Error(
-      "[anatomy] .parts(...) should only be called once. Did you mean to use .extend(...) ?",
+      "[anatomy] .part(...) should only be called once. Did you mean to use .extend(...) ?",
     )
   }
 

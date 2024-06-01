@@ -4,11 +4,27 @@ import Footer from 'components/footer'
 import Header from 'components/header'
 import SEO from 'components/seo'
 import TableOfContent from 'components/table-of-content'
+import { useRouter } from 'next/router'
+import * as React from 'react'
 import { FrontmatterHeading } from 'src/types/frontmatter'
 import { convertBackticksToInlineCode } from 'utils/convert-backticks-to-inline-code'
-import { useFocusHeading } from '../hooks/use-focus-heading'
 import { AdBanner } from './chakra-pro/ad-banner'
 import { MdxHeading } from './mdx-components/linked-heading'
+
+function useHeadingFocusOnRouteChange() {
+  const router = useRouter()
+
+  React.useEffect(() => {
+    const onRouteChange = () => {
+      const [heading] = Array.from(document.getElementsByTagName('h1'))
+      heading?.focus()
+    }
+    router.events.on('routeChangeComplete', onRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', onRouteChange)
+    }
+  }, [router.events])
+}
 
 interface PageContainerProps {
   frontmatter: {
@@ -38,7 +54,7 @@ function PageContainer(props: PageContainerProps) {
     maxWidth = '48rem',
   } = props
 
-  useFocusHeading()
+  useHeadingFocusOnRouteChange()
 
   if (!frontmatter) return <></>
 

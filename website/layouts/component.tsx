@@ -33,6 +33,7 @@ export default function ComponentDocsLayout({
           <MDXComponents.ComponentLinks
             theme={hasTheme && { componentName: id }}
             github={{ package: id }}
+            npm={{ package: frontmatter.package }}
           />
         </Stack>
       )}

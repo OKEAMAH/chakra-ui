@@ -14,7 +14,7 @@ const StyledGroup = chakra("div", {
     gap: "0.5rem",
     isolation: "isolate",
     position: "relative",
-    "& [data-group-item]": {
+    "& *": {
       _focusVisible: {
         zIndex: 1,
       },
@@ -34,18 +34,6 @@ const StyledGroup = chakra("div", {
         gap: "0!",
       },
     },
-    stacking: {
-      "first-on-top": {
-        "& > [data-group-item]": {
-          zIndex: "calc(var(--group-count) - var(--group-index))",
-        },
-      },
-      "last-on-top": {
-        "& > [data-group-item]": {
-          zIndex: "var(--group-index)",
-        },
-      },
-    },
   },
   compoundVariants: [
     {
@@ -56,7 +44,7 @@ const StyledGroup = chakra("div", {
           borderEndRadius: "0!",
           marginEnd: "-1px",
         },
-        "& > *[data-between]": {
+        "& > *:not([data-first]):not([data-last])": {
           borderRadius: "0!",
           marginEnd: "-1px",
         },
@@ -73,7 +61,7 @@ const StyledGroup = chakra("div", {
           borderBottomRadius: "0!",
           marginBottom: "-1px",
         },
-        "& > *[data-between]": {
+        "& > *:not([data-first]):not([data-last])": {
           borderRadius: "0!",
           marginBottom: "-1px",
         },
@@ -103,15 +91,8 @@ export const Group = memo(
       }
       return cloneElement(child, {
         ...child.props,
-        "data-group-item": "",
         "data-first": dataAttr(index === 0),
         "data-last": dataAttr(index === count - 1),
-        "data-between": dataAttr(index > 0 && index < count - 1),
-        style: {
-          "--group-count": count,
-          "--group-index": index,
-          ...child.props.style,
-        },
       } as any)
     })
 

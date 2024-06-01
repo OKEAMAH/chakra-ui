@@ -4,6 +4,7 @@ import React from 'react'
 export const MdxHeading = chakra('h2', {
   base: {
     scrollMarginBlock: '6.875rem',
+    mb: '1.25em',
     '& a': {
       marginStart: '0.375rem',
       color: 'teal.500',
@@ -19,7 +20,7 @@ export const MdxHeading = chakra('h2', {
       h1: {
         mt: '2rem',
         lineHeight: 1.2,
-        fontWeight: 'bold',
+        fontWeight: 'semibold',
         fontSize: '1.875rem',
         letterSpacing: '-.025em',
       },

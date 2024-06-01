@@ -5,12 +5,11 @@ import {
   For,
   HStack,
   Input,
-  Label,
-  RadioGroup,
   Span,
   Stack,
   useSlotRecipe,
 } from "../src"
+import { RadioGroup } from "../src/components/radio-group"
 import { colorPalettes } from "./shared/color-palettes"
 import { PlaygroundTable } from "./shared/playground-table"
 
@@ -118,13 +117,13 @@ export const Sizes = () => {
 export const WithForm = () => {
   return (
     <Stack maxW="sm" gap="4">
-      <Field>
-        <Label>Name</Label>
+      <Field.Root>
+        <Field.Label>Name</Field.Label>
         <Input />
-      </Field>
+      </Field.Root>
 
-      <Field>
-        <Label>What's your favorite Anime?</Label>
+      <Field.Root>
+        <Field.Label>What's your favorite Anime?</Field.Label>
         <RadioGroup.Root defaultValue="1">
           <Stack gap="2">
             <DemoRadio value="1">Naruto</DemoRadio>
@@ -132,7 +131,7 @@ export const WithForm = () => {
             <DemoRadio value="3">One Piece</DemoRadio>
           </Stack>
         </RadioGroup.Root>
-      </Field>
+      </Field.Root>
 
       <Button alignSelf="flex-start" variant="solid" mt="3">
         Submit

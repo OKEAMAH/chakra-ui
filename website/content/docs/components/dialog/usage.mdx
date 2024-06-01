@@ -2,6 +2,7 @@
 id: dialog
 category: overlay
 title: Dialog
+package: '@chakra-ui/dialog'
 description:
   A dialog is a dialog that focuses the user's attention exclusively on an
   information via a window that is overlaid on primary content.
@@ -22,26 +23,33 @@ When the dialog opens:
   interact with it.
 
 ```jsx
-<Dialog.Root>
-  <Dialog.Trigger asChild>
-    <Button>Open Dialog</Button>
-  </Dialog.Trigger>
-  <Dialog.Backdrop />
-  <Dialog.Positioner>
-    <Dialog.Content>
-      <Dialog.Header>Dialog Title</Dialog.Header>
-      <Dialog.CloseTrigger />
-      <Dialog.Body>
-        <Lorem count={2} />
-      </Dialog.Body>
+function BasicUsage() {
+  const { open, onOpen, onClose } = useDisclosure()
+  return (
+    <>
+      <Button onClick={onOpen}>Open Dialog</Button>
+      <Dialog.Root open={open} onClose={onClose}>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content>
+            <Dialog.Header>Dialog Title</Dialog.Header>
+            <Dialog.CloseTrigger />
+            <Dialog.Body>
+              <Lorem count={2} />
+            </Dialog.Body>
 
-      <Dialog.Footer>
-        <Button marginRight='3'>Close</Button>
-        <Button variant='ghost'>Secondary Action</Button>
-      </Dialog.Footer>
-    </Dialog.Content>
-  </Dialog.Positioner>
-</Dialog.Root>
+            <Dialog.Footer>
+              <Button mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button variant='ghost'>Secondary Action</Button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Dialog.Root>
+    </>
+  )
+}
 ```
 
 ### Control Focus when Dialog closes
@@ -50,7 +58,7 @@ When the dialog closes, it returns focus to the element that triggered it. Set
 `finalFocusRef` to change the element that should receive focus when the dialog
 closes.
 
-```jsx live=false
+```jsx
 function ReturnFocus() {
   const { open, onOpen, onClose } = useDisclosure()
   const finalRef = React.useRef(null)
@@ -93,7 +101,7 @@ For accessibility, it is recommended to block scrolling on the main document
 behind the dialog. Chakra does this by default but you can set
 `blockScrollOnMount` to `false` to allow scrolling behind the dialog.
 
-```jsx live=false
+```jsx
 function BasicUsage() {
   const { open, onOpen, onClose } = useDisclosure()
 
@@ -143,7 +151,7 @@ Chakra provides 2 props for this use case:
 > If you set `finalFocusRef`, internally we set `returnFocusOnClose` to `false`
 > so it doesn't return focus to the element that triggered it.
 
-```jsx live=false
+```jsx
 function InitialFocus() {
   const { open, onOpen, onClose } = useDisclosure()
 
@@ -169,15 +177,15 @@ function InitialFocus() {
             <Dialog.Header>Create your account</Dialog.Header>
             <Dialog.CloseTrigger />
             <Dialog.Body pb={6}>
-              <Field>
-                <Label>First name</Label>
+              <Field.Root>
+                <Field.Label>First name</Field.Label>
                 <Input ref={initialRef} placeholder='First name' />
-              </Field>
+              </Field.Root>
 
-              <Field mt={4}>
-                <Label>Last name</Label>
+              <Field.Root mt={4}>
+                <Field.Label>Last name</Field.Label>
                 <Input placeholder='Last name' />
-              </Field>
+              </Field.Root>
             </Dialog.Body>
 
             <Dialog.Footer>
@@ -192,13 +200,39 @@ function InitialFocus() {
 }
 ```
 
-### Close on interaction outside
+### Close Dialog on Overlay Click
 
-By default, the dialog closes when you click or focus outside. You can set
-`closeOnInteractOutside` to `false` if you want the dialog to stay visible.
+By default, the dialog closes when you click its overlay. You can set
+`closeOnOverlayClick` to `false` if you want the dialog to stay visible.
 
-```jsx live=false
-<Dialog closeOnOverlayClick={false}>{/* ...  */}</Dialog>
+```jsx
+function ManualClose() {
+  const { open, onOpen, onClose } = useDisclosure()
+
+  return (
+    <>
+      <Button onClick={onOpen}>Open Dialog</Button>
+
+      <Dialog closeOnOverlayClick={false} open={open} onClose={onClose}>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content>
+            <Dialog.Header>Create your account</Dialog.Header>
+            <Dialog.CloseTrigger />
+            <Dialog.Body pb={6}>
+              <Lorem count={2} />
+            </Dialog.Body>
+
+            <Dialog.Footer>
+              <Button mr={3}>Save</Button>
+              <Button onClick={onClose}>Cancel</Button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Dialog>
+    </>
+  )
+}
 ```
 
 ### Make dialog vertically centered
@@ -211,7 +245,7 @@ If you need to vertically center the dialog, pass the `centered` prop.
 > If the content within the dialog overflows beyond the viewport, don't use this
 > prop. Try setting the [overflow behavior](#dialog-overflow-behavior) instead.
 
-```jsx live=false
+```jsx
 function VerticallyCenter() {
   const { open, onOpen, onClose } = useDisclosure()
 
@@ -219,7 +253,7 @@ function VerticallyCenter() {
     <>
       <Button onClick={onOpen}>Trigger dialog</Button>
 
-      <Dialog.Root onClose={onClose} open={open} centered>
+      <Dialog onClose={onClose} open={open} centered>
         <Dialog.Backdrop />
         <Dialog.Positioner>
           <Dialog.Content>
@@ -233,7 +267,7 @@ function VerticallyCenter() {
             </Dialog.Footer>
           </Dialog.Content>
         </Dialog.Positioner>
-      </Dialog.Root>
+      </Dialog>
     </>
   )
 }
@@ -245,13 +279,13 @@ The `Dialog` comes with a scale transition by default but you can change it by
 passing a `motionPreset` prop, and setting its value to either `slideInBottom`,
 `slideInRight`, `scale` or `none`.
 
-```jsx live=false
+```jsx
 function TransitionExample() {
   const { open, onOpen, onClose } = useDisclosure()
   return (
     <>
       <Button onClick={onOpen}>Open Dialog</Button>
-      <Dialog.Root
+      <Dialog
         centered
         onClose={onClose}
         open={open}
@@ -273,7 +307,7 @@ function TransitionExample() {
             </Dialog.Footer>
           </Dialog.Content>
         </Dialog.Positioner>
-      </Dialog.Root>
+      </Dialog>
     </>
   )
 }
@@ -292,7 +326,7 @@ If the content within the dialog overflows beyond the viewport, you can use the
 - If set to `outside`, the entire `Dialog.Content` will scroll within the
   viewport.
 
-```jsx live=false
+```jsx
 function ScrollingExample() {
   const { open, onOpen, onClose } = useDisclosure()
   const [scrollBehavior, setScrollBehavior] = React.useState('inside')
@@ -341,7 +375,7 @@ function ScrollingExample() {
 Pass the `size` prop if you need to adjust the size of the dialog. Values can be
 `xs`, `sm`, `md`, `lg`, `xl`, or `full`.
 
-```jsx live=false
+```jsx
 function SizeExample() {
   const { open, onOpen, onClose } = useDisclosure()
   const [size, setSize] = React.useState('md')
@@ -398,6 +432,82 @@ Normally this is what you want to maintain accessibility standards.
 there are certain situations where you might not want the dialog to trap focus.
 
 To prevent focus trapping, pass `trapFocus` and set its value to `false`.
+
+### Styling the backdrop
+
+The backdrop's background by default is set to `blackAlpha.600`, but if you want
+to achieve a different style you can also use the backdrop style props, like
+`backdropBlur`, `backdropBrightness`, `backdropContrast`, `backdropHueRotate`,
+`backdropInvert`, and `backdropSaturate`. To use these style props, you'd have
+to set the `backdropFilter` prop to `auto`.
+
+> Please be aware that not every browser supports the
+> [backdrop-filter](https://caniuse.com/css-backdrop-filter) CSS property, the
+> example below included.
+
+The `filter` property will have no effect on the background because the Dialog
+is rendered within a `Portal`. This means you can only style components within
+the Dialog by using this property.
+
+```jsx
+function BackdropExample() {
+  const OverlayOne = () => (
+    <Dialog.Backdrop
+      bg='blackAlpha.300'
+      backdropFilter='blur(10px) hue-rotate(90deg)'
+    />
+  )
+
+  const OverlayTwo = () => (
+    <Dialog.Backdrop
+      bg='none'
+      backdropFilter='auto'
+      backdropInvert='80%'
+      backdropBlur='2px'
+    />
+  )
+
+  const { open, onOpen, onClose } = useDisclosure()
+  const [overlay, setOverlay] = React.useState(<OverlayOne />)
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOverlay(<OverlayOne />)
+          onOpen()
+        }}
+      >
+        Use Overlay one
+      </Button>
+      <Button
+        ml='4'
+        onClick={() => {
+          setOverlay(<OverlayTwo />)
+          onOpen()
+        }}
+      >
+        Use Overlay two
+      </Button>
+      <Dialog centered open={open} onClose={onClose}>
+        {overlay}
+        <Dialog.Positioner>
+          <Dialog.Content>
+            <Dialog.Header>Dialog Title</Dialog.Header>
+            <Dialog.CloseTrigger />
+            <Dialog.Body>
+              <Text>Custom backdrop filters!</Text>
+            </Dialog.Body>
+            <Dialog.Footer>
+              <Button onClick={onClose}>Close</Button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Dialog>
+    </>
+  )
+}
+```
 
 ## Accessibility
 

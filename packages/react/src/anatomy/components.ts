@@ -5,7 +5,6 @@ export const accordionAnatomy = anatomy("accordion").parts(
   "item",
   "trigger",
   "content",
-  "body",
   "indicator",
 )
 
@@ -25,6 +24,14 @@ export const toastAnatomy = anatomy("toast").parts(
   "closeTrigger",
 )
 
+export const avatarAnatomy = anatomy("avatar").parts(
+  "group",
+  "root",
+  "image",
+  "fallback",
+  "badge",
+)
+
 export const breadcrumbAnatomy = anatomy("breadcrumb").parts(
   "link",
   "currentLink",
@@ -42,10 +49,18 @@ export const blockquoteAnatomy = anatomy("blockquote").parts(
   "caption",
 )
 
+export const buttonAnatomy = anatomy("button").parts()
+
 export const checkboxAnatomy = anatomy("checkbox").parts(
   "control",
   "indicator",
   "root",
+  "label",
+)
+
+export const circularProgressAnatomy = anatomy("progress").parts(
+  "track",
+  "filledTrack",
   "label",
 )
 
@@ -54,6 +69,23 @@ export const editableAnatomy = anatomy("editable").parts(
   "preview",
   "input",
   "textarea",
+)
+
+export const fieldAnatomy = anatomy("form").parts(
+  "root",
+  "label",
+  "requiredIndicator",
+  "helpText",
+  "errorMessage",
+)
+
+export const formErrorAnatomy = anatomy("formError").parts("text", "icon")
+
+export const inputAnatomy = anatomy("input").parts(
+  "addon",
+  "field",
+  "element",
+  "group",
 )
 
 export const listAnatomy = anatomy("list").parts("root", "item", "icon")
@@ -68,12 +100,65 @@ export const menuAnatomy = anatomy("menu").parts(
   "separator",
 )
 
+export const modalAnatomy = anatomy("modal").parts(
+  "overlay",
+  "positioner",
+  "content",
+  "header",
+  "closeTrigger",
+  "body",
+  "footer",
+)
+
+export const drawerAnatomy = anatomy("drawer").parts(
+  "overlay",
+  "positioner",
+  "content",
+  "header",
+  "closeTrigger",
+  "body",
+  "footer",
+)
+
 export const numberInputAnatomy = anatomy("numberinput").parts(
   "root",
   "field",
   "control",
   "incrementTrigger",
   "decrementTrigger",
+)
+
+export const pinInputAnatomy = anatomy("pininput").parts("field")
+
+export const popoverAnatomy = anatomy("popover").parts(
+  "content",
+  "header",
+  "title",
+  "description",
+  "body",
+  "footer",
+  "trigger",
+  "positioner",
+  "indicator",
+  "arrow",
+  "arrowTip",
+  "closeTrigger",
+)
+
+export const hoverCardAnatomy = anatomy("popover").parts(
+  "content",
+  "trigger",
+  "positioner",
+  "arrow",
+  "arrowTip",
+)
+
+export const progressAnatomy = anatomy("progress").parts(
+  "root",
+  "label",
+  "filledTrack",
+  "track",
+  "valueText",
 )
 
 export const radioAnatomy = anatomy("radio").parts(

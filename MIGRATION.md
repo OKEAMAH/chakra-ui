@@ -147,8 +147,6 @@ After:
 
 ### Avatar
 
-- Decompose `Avatar` into `Avatar.Root`, `Avatar.Image`, and `Avatar.Fallback`
-
 Before:
 
 ```tsx
@@ -161,45 +159,6 @@ After:
 <Avatar.Root name="Dan Abrahmov" src="https://bit.ly/dan-abramov">
   <Avatar.Image />
   <Avatar.Fallback />
-</Avatar.Root>
-```
-
-- Removed `AvatarGroup` in favor of using the `Group` component and setting the
-  `spaceX` prop
-
-Before
-
-```tsx
-<AvatarGroup>
-  <Avatar name="Baba Lee" src="..." />
-  <Avatar name="Kent Dodds" />
-</AvatarGroup>
-```
-
-After
-
-```jsx
-<Group gap="0" spaceX="-3">
-  <Avatar.Root size={size}>
-    <Avatar.Image src="..." />
-    <Avatar.Fallback>BA</Avatar.Fallback>
-  </Avatar.Root>
-
-  <Avatar.Root size={size} variant="solid">
-    <Avatar.Fallback>+3</Avatar.Fallback>
-  </Avatar.Root>
-</Group>
-```
-
-- Removed `AvatarBadge` in factor of using the `Floating` component. This makes
-  it easier to use other elements like smaller avatars or icons as badges.
-
-```tsx
-<Avatar.Root colorPalette="green" variant="subtle">
-  <Avatar.Fallback>DA</Avatar.Fallback>
-  <Float placement="bottom-end" offsetX="1" offsetY="1">
-    <Circle bg="green.500" size="8px" outline="0.2em solid" outlineColor="bg" />
-  </Float>
 </Avatar.Root>
 ```
 
@@ -380,12 +339,12 @@ Form control has now been renamed to `Field` to better reflect its purpose as an
 element that represents a form field.
 
 ```tsx
-<Field id="first-name" required invalid>
-  <Label>First name</Label>
+<Field.Root id="first-name" isRequired isInvalid>
+  <Field.Label>First name</Field.Label>
   <Input placeholder="First Name" />
-  <HelpText>Keep it very short and sweet!</HelpText>
-  <ErrorMessage>Your First name is invalid</ErrorMessage>
-</Field>
+  <Field.HelpText>Keep it very short and sweet!</Field.HelpText>
+  <Field.ErrorMessage>Your First name is invalid</Field.ErrorMessage>
+</Field.Root>
 ```
 
 HelperText has been renamed to `Field.HelpText` for brevity.

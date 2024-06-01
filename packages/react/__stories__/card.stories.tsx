@@ -8,7 +8,6 @@ import {
   Heading,
   Image,
   Input,
-  Label,
   Span,
   Stack,
   Text,
@@ -177,25 +176,25 @@ export const Horizontal = () => (
 export const WithForm = () => (
   <Card.Root bg="bg.subtle">
     <Card.Header>
-      <Heading size="lg" mb="3">
+      <Heading size="md" mb="3">
         Sign up
       </Heading>
       <Text color="fg.muted">Fill in the form below to create an account</Text>
     </Card.Header>
     <Card.Body>
       <Stack maxW="sm" gap="4">
-        <Field>
-          <Label>First Name</Label>
+        <Field.Root>
+          <Field.Label>First Name</Field.Label>
           <Input />
-        </Field>
-        <Field>
-          <Label>Last Name</Label>
+        </Field.Root>
+        <Field.Root>
+          <Field.Label>Last Name</Field.Label>
           <Input />
-        </Field>
+        </Field.Root>
       </Stack>
     </Card.Body>
     <Card.Footer justify="flex-end" gap="4">
-      <Button variant="outline">Cancel</Button>
+      <Button>Cancel</Button>
       <Button variant="solid">Sign in</Button>
     </Card.Footer>
   </Card.Root>
