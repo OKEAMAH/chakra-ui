@@ -252,7 +252,8 @@ function OmniSearch() {
                 autoCorrect='off'
                 spellCheck='false'
                 maxLength={64}
-                css={{
+                w="100%"
+                h="68px"
                   w: '100%',
                   h: '68px',
                   pl: '68px',
